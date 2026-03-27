@@ -1,0 +1,50 @@
+<div class="page">
+  <div class="topbar">
+    <h2 class="title">Courses</h2>
+
+    <label class="filter">
+      <span class="filter-label">Category</span>
+      <select class="select" [(ngModel)]="selectedCategory">
+        @for (cat of categories; track cat) {
+          <option [ngValue]="cat">{{ cat }}</option>
+        }
+      </select>
+    </label>
+  </div>
+
+  <div class="grid">
+    @for (c of filteredCourses; track c.id) {
+      <div
+        class="card"
+        [ngStyle]="{ 'background-color': courseBg(c) }"
+        [ngClass]="{ full: c.seats === 0 }"
+      >
+        <img class="image" [src]="c.image" [alt]="c.title" />
+
+        <div class="body">
+          <div class="name">{{ c.title }}</div>
+          <div class="meta">Instructor: {{ c.instructor }}</div>
+          <div class="meta">Price: {{ c.price }}</div>
+          <div class="meta">Seats Available: {{ c.seats }}</div>
+
+          <div class="status">
+            @if (c.seats === 0) {
+              <span class="badge badge-full">Course Full</span>
+            } @else if (c.seats <= 2) {
+              <span class="badge badge-low">Almost Full</span>
+            }
+          </div>
+
+          <button
+            type="button"
+            class="btn"
+            (click)="register(c)"
+            [disabled]="c.seats === 0"
+          >
+            Register
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+</div>
