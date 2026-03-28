@@ -123,3 +123,31 @@
 .full .meta {
   color: #b91c1c;
 }
+
+.price-note {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px;
+  color: #64748b;
+}
+
+.pipe-demo {
+  margin-top: 28px;
+  padding: 16px;
+  border-radius: 14px;
+  border: 1px dashed #cbd5e1;
+  background: #f8fafc;
+}
+
+.pipe-demo-title {
+  margin: 0 0 10px;
+  font-size: 14px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.pipe-demo-line {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: #334155;
+}

@@ -24,7 +24,9 @@
         <div class="body">
           <div class="name">{{ c.title }}</div>
           <div class="meta">Instructor: {{ c.instructor }}</div>
-          <div class="meta">Price: {{ c.price }}</div>
+          <div class="meta">
+            Price: {{ c.price }} → {{ c.price | discount }}
+          </div>
           <div class="meta">Seats Available: {{ c.seats }}</div>
 
           <div class="status">
@@ -38,8 +40,9 @@
           <button
             type="button"
             class="btn"
+            appDisableAfterClick
+            [appDisableAfterClickWhenDisabled]="c.seats === 0"
             (click)="register(c)"
-            [disabled]="c.seats === 0"
           >
             Register
           </button>
@@ -47,4 +50,14 @@
       </div>
     }
   </div>
+
+  <section class="pipe-demo" aria-label="Discount pipe examples">
+    <h3 class="pipe-demo-title">Discount pipe (assignment)</h3>
+    <p class="pipe-demo-line">
+      1000 with default 10%: <strong>{{ 1000 | discount }}</strong> (expected 900)
+    </p>
+    <p class="pipe-demo-line">
+      1000 with 20%: <strong>{{ 1000 | discount:20 }}</strong> (expected 800)
+    </p>
+  </section>
 </div>
