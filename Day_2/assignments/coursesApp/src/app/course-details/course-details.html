@@ -1,0 +1,19 @@
+<section class="details-page">
+  @if (course) {
+    <article class="details-card">
+      <img [src]="course.image" [alt]="course.title" class="details-image" />
+      <h2>{{ course.title }}</h2>
+      <p>Instructor: {{ course.instructor }}</p>
+      <p>Category: {{ course.category }}</p>
+      <p>Price: {{ course.price }} -> {{ course.price | discount }}</p>
+      <p>Seats Available: {{ course.seats }}</p>
+      <a routerLink="/courses" class="back-link">Back to Courses</a>
+    </article>
+  } @else {
+    <article class="details-card">
+      <h2>Course Not Found</h2>
+      <p>The requested course id does not exist.</p>
+      <a routerLink="/courses" class="back-link">Back to Courses</a>
+    </article>
+  }
+</section>

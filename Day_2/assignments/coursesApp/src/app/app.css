@@ -1,0 +1,31 @@
+.main-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid #e2e8f0;
+  background: #ffffff;
+  position: sticky;
+  top: 0;
+}
+
+.main-header h1 {
+  margin: 0 0 12px;
+  font-size: 22px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #334155;
+  font-weight: 700;
+  padding: 8px 10px;
+  border-radius: 8px;
+}
+
+.nav-links a.active-link {
+  background: #dbeafe;
+  color: #1d4ed8;
+}

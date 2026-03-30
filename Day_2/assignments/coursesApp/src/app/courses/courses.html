@@ -4,9 +4,10 @@
 
     <label class="filter">
       <span class="filter-label">Category</span>
-      <select class="select" [(ngModel)]="selectedCategory">
-        @for (cat of categories; track cat) {
-          <option [ngValue]="cat">{{ cat }}</option>
+      <select class="select" [(ngModel)]="selectedCategoryId">
+        <option [ngValue]="'all'">All</option>
+        @for (cat of categories; track cat.id) {
+          <option [ngValue]="cat.id">{{ cat.name }}</option>
         }
       </select>
     </label>
@@ -46,6 +47,10 @@
           >
             Register
           </button>
+
+          <a class="btn btn-secondary" [routerLink]="['/course', c.id]">
+            Details
+          </a>
         </div>
       </div>
     }

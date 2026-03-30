@@ -1,1 +1,13 @@
-<app-courses />
+<header class="main-header">
+  <h1>ITI Courses App</h1>
+  <nav class="nav-links">
+    <a routerLink="/home" routerLinkActive="active-link">Home</a>
+    <a routerLink="/about" routerLinkActive="active-link">About Us</a>
+    <a routerLink="/contact" routerLinkActive="active-link">Contact Us</a>
+    <a routerLink="/courses" routerLinkActive="active-link">Courses</a>
+  </nav>
+</header>
+
+<main>
+  <router-outlet />
+</main>

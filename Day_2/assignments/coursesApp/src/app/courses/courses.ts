@@ -1,19 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { DisableAfterClickDirective } from '../directives/disable-after-click.directive';
+import { Category } from '../models/category.model';
+import { Course } from '../models/course.model';
 import { DiscountPipe } from '../pipes/discount.pipe';
-
-export interface Course {
-  id: number;
-  title: string;
-  instructor: string;
-  price: number;
-  seats: number;
-  image: string;
-  catId: number;
-  category: 'Programming' | 'Design' | 'Marketing' | 'Business';
-}
+import { CategoriesService } from '../services/categories.service';
+import { CoursesService } from '../services/courses.service';
 
 @Component({
   selector: 'app-courses',
@@ -22,74 +16,27 @@ export interface Course {
     FormsModule,
     DiscountPipe,
     DisableAfterClickDirective,
+    RouterLink,
   ],
   templateUrl: './courses.html',
   styleUrl: './courses.css',
 })
 export class CoursesComponent {
-  selectedCategory: 'All' | Course['category'] = 'All';
+  selectedCategoryId: number | 'all' = 'all';
+  categories: Category[] = [];
+  courses: Course[] = [];
 
-  courses: Course[] = [
-    {
-      id: 1,
-      title: 'Angular Fundamentals',
-      instructor: 'Ahmed Ali',
-      price: 1200,
-      seats: 5,
-      image: 'https://picsum.photos/seed/angular/600/400',
-      catId: 1,
-      category: 'Programming',
-    },
-    {
-      id: 2,
-      title: 'UI Design Basics',
-      instructor: 'Mona Hassan',
-      price: 900,
-      seats: 2,
-      image: 'https://picsum.photos/seed/design/600/400',
-      catId: 2,
-      category: 'Design',
-    },
-    {
-      id: 3,
-      title: 'Digital Marketing 101',
-      instructor: 'Omar Samy',
-      price: 800,
-      seats: 0,
-      image: 'https://picsum.photos/seed/marketing/600/400',
-      catId: 3,
-      category: 'Marketing',
-    },
-    {
-      id: 4,
-      title: 'Business Essentials',
-      instructor: 'Sara Adel',
-      price: 1100,
-      seats: 1,
-      image: 'https://picsum.photos/seed/business/600/400',
-      catId: 4,
-      category: 'Business',
-    },
-    {
-      id: 5,
-      title: 'TypeScript Mastery',
-      instructor: 'Youssef Mahmoud',
-      price: 1300,
-      seats: 3,
-      image: 'https://picsum.photos/seed/typescript/600/400',
-      catId: 1,
-      category: 'Programming',
-    },
-  ];
-
-  get categories(): Array<'All' | Course['category']> {
-    const unique = Array.from(new Set(this.courses.map((c) => c.category)));
-    return ['All', ...unique];
+  constructor(
+    private readonly coursesService: CoursesService,
+    private readonly categoriesService: CategoriesService
+  ) {
+    this.categories = this.categoriesService.getAllCategories();
+    this.courses = this.coursesService.getAllCourses();
   }
 
   get filteredCourses(): Course[] {
-    if (this.selectedCategory === 'All') return this.courses;
-    return this.courses.filter((c) => c.category === this.selectedCategory);
+    if (this.selectedCategoryId === 'all') return this.courses;
+    return this.coursesService.getCoursesByCatID(this.selectedCategoryId);
   }
 
   register(course: Course): void {
